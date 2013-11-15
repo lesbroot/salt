@@ -184,7 +184,7 @@ def list_(pkg=None, dir=None):
 
     result = __salt__['cmd.run_all'](cmd, cwd=dir)
 
-    if result['retcode'] != 0:
+    if result['retcode'] != 0 and result['stdout'] != '{}':
         raise CommandExecutionError(result['stderr'])
 
     return json.loads(result['stdout']).get('dependencies', {})
